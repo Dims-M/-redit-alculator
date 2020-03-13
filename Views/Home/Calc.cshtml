@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Тестовой калькулятор</title>
+</head>
+<body>
+    <!--Данные отправляются с помощью POST запроса-->
+    <form action="Home" method="post">
+        <input type="text" name="message" />
+        <input type="text" name="message2" />
+        <input type="submit" value="Отправить на сервер" />
+    </form>
+
+    <!--Данные отправляются с помощью GET запроса, как данные в маршруте-->
+    <a href="Home/index">Route Data</a>
+
+    <br />
+    <!--Данные отправляются с помощью GET запроса, как данные адресной строки-->
+    <a href="/Data/Users?id=100">QueryString Data</a>
+    <p>Результат сложения двух чисел =
+    <p>
+        @Model
+</p>
+    </p>
+</body>
+</html>
