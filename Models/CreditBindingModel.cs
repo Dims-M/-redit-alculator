@@ -8,7 +8,7 @@ namespace СreditСalculator.Models
     /// <summary>
     /// Реквизиты кредита
     /// </summary>
-    public class CreditModel
+    public class CreditBindingModel
     {
         /// <summary>
         /// Сумма кредита

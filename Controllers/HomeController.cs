@@ -50,7 +50,7 @@ namespace СreditСalculator.Controllers
         /// Завяка на кредит. 
         /// </summary>
         /// <returns></returns>
-        public IActionResult Credit()
+        public IActionResult CreditGet()
         {
             //Отправляем форму для регистрации. Или другую форму для ввода данных пользователю
             return View();
@@ -61,7 +61,7 @@ namespace СreditСalculator.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Credit(CreditModel credit )
+        public IActionResult CreditGet(CreditBindingModel creditG )
         {
             
             return View("Success");
