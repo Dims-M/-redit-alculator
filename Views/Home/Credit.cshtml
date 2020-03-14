@@ -1,0 +1,36 @@
+﻿@model CreditModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Форма регистрации</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="card-body">
+    <form asp-controller="home" asp-action="сredit" method="post">
+        <div class="form-group">
+            <label asp-for="SummaCredit"></label>
+            <input asp-for="SummaCredit" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="TermCredit"></label>
+            <input asp-for="TermCredit" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="LendingTate"></label>
+            <input asp-for="LendingTate" class="form-control" />
+        </div>
+       
+        <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
+    </form>
+</body>
+</html>

@@ -46,6 +46,26 @@ namespace СreditСalculator.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Завяка на кредит. 
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Credit()
+        {
+            //Отправляем форму для регистрации. Или другую форму для ввода данных пользователю
+            return View();
+        }
+
+        /// <summary>
+        /// Форма вода данных для разчетов кредита
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Credit(CreditModel credit )
+        {
+            
+            return View("Success");
+        }
 
         public IActionResult Register()
         {
