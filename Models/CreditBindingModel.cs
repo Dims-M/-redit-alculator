@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace СreditСalculator.Models
         /// <summary>
         /// Сумма кредита
         /// </summary>
+        [UIHint("Сумма кредита")]
         public double SummaCredit { get; set; }
         /// <summary>
         /// Срок кредитования
