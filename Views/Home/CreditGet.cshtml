@@ -29,7 +29,12 @@
             <label asp-for="LendingTate"></label>
             <input asp-for="LendingTate" class="form-control" />
         </div>
-       
+
+        <div class="form-check">
+            <input asp-for="AdoptionAgreement" class="form-check-input" value="true" />
+            <label for="TermsAccepted">"Согласие на обработку персональных данных клиента"</label>
+        </div>
+
         <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
     </form>
 </body>
