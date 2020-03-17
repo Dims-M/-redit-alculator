@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using СreditСalculator.AppData;
+using СreditСalculator.Models;
 
 namespace СreditСalculator
 {
@@ -27,6 +30,11 @@ namespace СreditСalculator
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+
+            //Подключаем БД
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<CreditContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
         }
 
@@ -63,10 +71,10 @@ namespace СreditСalculator
             // Устанавливаем  шаблон адреса, которые будут обрабатываться
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                  name: "TwoParametrRoute",
-                  pattern: "{controller}/{action}/{x}/{y}"
-                  );
+                //endpoints.MapControllerRoute(
+                //  name: "TwoParametrRoute",
+                //  pattern: "{controller}/{action}/{x}/{y}"
+                //  );
 
                 endpoints.MapControllerRoute(
                     name: "default",
