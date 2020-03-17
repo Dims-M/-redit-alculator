@@ -1,41 +1,48 @@
 ﻿@model CreditBindingModel
-@{
+@*@{
     Layout = null;
-}
+}*@
 
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Форма регистрации</title>
+    <title>CreditGet</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body class="card-body">
-    <form asp-controller="home" asp-action="creditGet" method="post">
-        <div class="form-group">
-            <label asp-for="SummaCredit"></label>
-            <input type="number" asp-for="SummaCredit" class="form-control" />
+    <form asp-antiforgery="true" asp-action="Create" asp-controller="Home">
+        <div>
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <label asp-for="SummaCredit"></label><br />
+                <input type="text" asp-for="SummaCredit"class="form-control" />
+                <span asp-validation-for="SummaCredit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TermCredit"></label><br />
+                <input asp-for="TermCredit"class="form-control" />
+                <span asp-validation-for="TermCredit" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="LendingTate"></label><br />
+                <input asp-for="LendingTate" class="form-control"/>
+                <span asp-validation-for="LendingTate" class="text-danger"></span>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="TermCredit"></label>
-            <input type="number" asp-for="TermCredit" class="form-control" />
-        </div>
-        @*<div class="form-group">
-            <label asp-for="Password"></label>
-            <input asp-for="Password" class="form-control" />
-        </div>*@
-        <div class="form-group">
-            <label asp-for="LendingTate"></label>
-            <input asp-for="LendingTate" class="form-control" />
-        </div>
-
-        <div class="form-check">
-            <input asp-for="AdoptionAgreement" class="form-check-input" value="true" />
-            <label for="TermsAccepted">"Согласие на обработку персональных данных клиента"</label>
-        </div>
-
-        <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
     </form>
+
+
+    @section scripts{
+
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
 </body>
 </html>
