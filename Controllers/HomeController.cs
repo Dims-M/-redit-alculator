@@ -63,8 +63,16 @@ namespace СreditСalculator.Controllers
         [HttpPost]
         public IActionResult CreditGet(CreditBindingModel creditG )
         {
-            
-            return View("Success");
+            //проверяем на валидность моделию,
+            if (ModelState.IsValid)
+            {
+                 return View("Success");
+            }
+
+            else
+            {
+                return View("creditG"); // возвращаем клиенту на исправление
+            }
         }
 
         public IActionResult Register()
