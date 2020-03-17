@@ -1,4 +1,5 @@
 ﻿@model CreditBindingModel
+
 @*@{
     Layout = null;
 }*@
@@ -8,41 +9,55 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>CreditGet</title>
+    <title>Регистрация</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
 </head>
 <body class="card-body">
-    <form asp-antiforgery="true" asp-action="Create" asp-controller="Home">
-        <div>
-            <div class="validation" asp-validation-summary="ModelOnly"></div>
-            <div class="form-group">
-                <label asp-for="SummaCredit"></label><br />
-                <input type="text" asp-for="SummaCredit"class="form-control" />
-                <span asp-validation-for="SummaCredit" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TermCredit"></label><br />
-                <input asp-for="TermCredit"class="form-control" />
-                <span asp-validation-for="TermCredit" class="text-danger"></span>
-            </div>
-           
-            <div class="form-group">
-                <label asp-for="LendingTate"></label><br />
-                <input asp-for="LendingTate" class="form-control"/>
-                <span asp-validation-for="LendingTate" class="text-danger"></span>
-            </div>
-            <div>
-                <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
-            </div>
+
+    <h4>Регистрация</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="CreditGet">
+                <div class="form-group">
+                    <label asp-for="SummaCredit" class="control-label"></label>
+                    <input asp-for="SummaCredit" class="form-control" />
+                    <span asp-validation-for="SummaCredit" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TermCredit" class="control-label"></label>
+                    <input asp-for="TermCredit" class="form-control" />
+                    <span asp-validation-for="TermCredit" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="LendingTate" class="control-label"></label>
+                    <input asp-for="LendingTate" class="form-control" />
+                    <span asp-validation-for="LendingTate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @*<input type="submit" value="Создать учетную запись" class="btn btn-primary" />*@
+                    <input type="submit" value="Создать учетную запись" class="btn btn-primary" />
+                </div>
+            </form>
         </div>
-    </form>
-
-
-    @section scripts{
-
-        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    }
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>

@@ -14,11 +14,11 @@ namespace СreditСalculator.Models
         /// <summary>
         /// Сумма кредита
         /// </summary>
-        [Required(ErrorMessage = "Сумма кредита не должна быть пустой. И быть больше 1 мл. руб")] //Поле обязателько к заполнению.
-        [StringLength(7)]
+        [Required(ErrorMessage = "Сумма кредита не должна быть пустой.")] //Поле обязателько к заполнению.
+        [StringLength(7, ErrorMessage ="Сумма не должна ьуть больше  1 мл. руб.")]
         [UIHint("SummaCredit")]
         [Display(Name= "Сумма кредита")]
-        public double SummaCredit { get; set; }
+        public int SummaCredit { get; set; }
 
         /// <summary>
         /// Срок кредитования
