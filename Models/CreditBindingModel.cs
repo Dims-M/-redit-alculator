@@ -11,11 +11,17 @@ namespace СreditСalculator.Models
     /// </summary>
     public class CreditBindingModel
     {
+
+        /// <summary>
+        /// Id для Базы данны
+        /// </summary>
+        public int Id { get; set; }
+
         /// <summary>
         /// Сумма кредита
         /// </summary>
         [Required(ErrorMessage = "Сумма кредита не должна быть пустой.")] //Поле обязателько к заполнению.
-        [StringLength(7, ErrorMessage ="Сумма не должна ьуть больше  1 мл. руб.")]
+       // [StringLength(7, ErrorMessage ="Сумма не должна ьуть больше  1 мл. руб.")]
         [UIHint("SummaCredit")]
         [Display(Name= "Сумма кредита")]
         public int SummaCredit { get; set; }
@@ -24,7 +30,7 @@ namespace СreditСalculator.Models
         /// Срок кредитования
         /// </summary>
         [Required(ErrorMessage = "Укажите нужный срок кредита")]
-        [StringLength(2)]
+      //  [StringLength(2)]
         [UIHint("TermCredit")]
         [Display(Name = "Срок кредитования")]
       
@@ -34,7 +40,7 @@ namespace СreditСalculator.Models
         /// </summary>
         [UIHint("LendingTate")]
         [Required(ErrorMessage = "Укажите Ставку кредитования")]
-        [StringLength(2)]
+     //   [StringLength(2)]
         [Display(Name = "Ставка кредитования ")]
         public int LendingTate { get; set; }
 
@@ -44,6 +50,7 @@ namespace СreditСalculator.Models
         [Required]
         [UIHint("AdoptionAgreement")]
         public bool AdoptionAgreement { get; set; }
+
 
     }
 }

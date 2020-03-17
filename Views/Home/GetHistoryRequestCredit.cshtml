@@ -1,0 +1,56 @@
+﻿@model IEnumerable<СreditСalculator.Models.ResultCredit>
+@{
+   // Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Список заявок</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="card-body">
+
+    <h3>Ранее выданные заявки</h3>
+    <div class="row">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <td scope="col">Номер платежа</td>
+                    <td scope="col">Дата платежа</td>
+                    <td>Размер  тела платежа</td>
+                    <td>Размер платежа в процентах</td>
+                    <td>Остаток основного долга</td>
+                    @*<td>Размер  тела платежа</td>*@
+                    @*<td></td>*@
+                </tr>
+                @foreach (var resulCredit in Model)
+                {
+                    <tr>
+                        <td>@resulCredit.NumberPayment</td>
+                        <td>@resulCredit.DateTimePayment</td>
+                        <td>@resulCredit.SizePaymentBody</td>
+                        <td>@resulCredit.SizePaymentPercentage</td>
+                        <td>@resulCredit.PrincipalBalance</td>
+
+                    </tr>
+                }
+            </thead>
+        </table>
+
+    </div>
+    
+    <div class="container">
+        <h6>Текущие расчеты являются предварительными расчетами</h6>
+        @*Вернутся на главную страницу<a asp-area="" asp-controller="Home" asp-action="Index">Privacy</a>*@
+        @*<button class="btn btn-primary" type="submit" asp-controller="Home" asp-action="Index">Зарегистрироваться</button>*@
+    </div>
+  
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>*@
+  
+</body>
+</html>

@@ -10,6 +10,9 @@ namespace СreditСalculator.Models
     /// </summary>
     public class ResultCredit
     {
+
+        public int Id { get; set; }
+
         /// <summary>
         /// Номер платежа
         /// </summary>
@@ -34,5 +37,9 @@ namespace СreditСalculator.Models
         /// Остаток основного долга
         /// </summary>
         public int PrincipalBalance { get; set; }
+
+        public int IdCredit { get; set; } // ссылка на связанную модель заявки кредита
+        public CreditBindingModel CreditBindingModel { get; set; }
+
     }
 }
