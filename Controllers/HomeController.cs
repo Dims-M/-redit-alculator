@@ -111,6 +111,41 @@ namespace СreditСalculator.Controllers
             return View(listDataCredit);
         }
 
+
+        internal void TestRaschet(int sumCreditSum, int sumProcent, int sumPeriod)
+        {
+            if (sumCreditSum == 0)
+            {
+               // MessageBox.Show("Укажите сумму кредита.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+           
+            else
+            {
+               // dgvGrafik.Rows.Clear(); // Очищаем таблицу
+                double SumCredit = Convert.ToDouble(sumCreditSum); // Сумма кредита
+                double InterestRateYear = Convert.ToDouble(sumProcent); // Процентная ставка, ГОДОВАЯ
+                double InterestRateMonth = InterestRateYear / 100 / 12; // Процентная ставка, МЕСЯЧНАЯ
+                int CreditPeriod = Convert.ToInt32(sumPeriod); // Срок кредита, переводим в месяцы, если указан в годах
+
+                //if (sumPeriodCombo.SelectedIndex == 0) // Должен БЫТЬ Выподающий список
+                    CreditPeriod *= 12;
+
+                //if (sumAnnuitet.Checked == true) // Аннуитетный платеж
+                //{
+                double Payment = SumCredit * (InterestRateMonth / (1 - Math.Pow(1 + InterestRateMonth, -CreditPeriod))); // Ежемесячный платеж
+                double ItogCreditSum = Payment * CreditPeriod; // Итоговая сумма кредита
+
+
+                // PaymentScheduleAnnuitet(SumCredit, InterestRateYear, InterestRateMonth, CreditPeriod);
+                //}
+                //else if (sumDiffer.Checked == true) // Дифференцированный платеж
+                //{
+                //    PaymentScheduleDiffer(SumCredit, InterestRateMonth, CreditPeriod);
+                //}
+                //butSaveAsCSV.Enabled = true;
+            }
+
         //Атрибут кэширования
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
