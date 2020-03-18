@@ -67,7 +67,7 @@ namespace СreditСalculator.Controllers
                 int timeCredit = creditG.TermCredit;
                 int stavkaCrediy = creditG.LendingTate;
 
-               TestRaschet(summaCredita, stavkaCrediy, timeCredit); // Тестовый расчет и запись в бд
+               ёTestRaschet(summaCredita, stavkaCrediy, timeCredit); // Тестовый расчет и запись в бд
 
                creditBindingModelTemp = creditG;
 
