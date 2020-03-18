@@ -14,6 +14,11 @@ namespace СreditСalculator.Controllers
     {
         CreditContext db;
 
+       static CreditBindingModel creditBindingModelTemp = new CreditBindingModel();
+       static List<string> listDataCredit;
+
+        
+
         /// <summary>
         /// Логирование
         /// </summary>
@@ -62,17 +67,26 @@ namespace СreditСalculator.Controllers
                 int timeCredit = creditG.TermCredit;
                 int stavkaCrediy = creditG.LendingTate;
 
-                ViewBag.Resul2 = creditG;
+                 
+                creditBindingModelTemp = creditG;
 
-                ViewBag.Resul = $"Ваша заявка расмотренна!" +
-                    $" {Environment.NewLine}" +
-                    $"Сумма кредита:{summaCredita}" +
-                    $"{Environment.NewLine}" +
-                    $"Нужный срок кредитования:{timeCredit}" +
-                    $"{Environment.NewLine}" +
-                    $"Утвержденная ставка{stavkaCrediy}";
- 
-                return View("Success");
+                listDataCredit = new List<string>(){ $"Ваша заявка расмотренна!{Environment.NewLine}Сумма кредита:{summaCredita}{Environment.NewLine}Нужный срок кредитования:{timeCredit}{Environment.NewLine}Утвержденная ставка{stavkaCrediy}"};
+
+                //Добавляев в БД для статистики
+                db.AddRange(
+                   new CreditBindingModel
+                   {
+                       SummaCredit = summaCredita,
+                       TermCredit = timeCredit,
+                       LendingTate = stavkaCrediy
+                   }
+                   
+                   );
+                db.SaveChanges(); // сохр. в бд
+
+                return Redirect("~/Home/CalculateCredit");
+
+               // return View("Success");
             }
 
             else
@@ -89,6 +103,12 @@ namespace СreditСalculator.Controllers
         {
             
             return View(db.ResultCredits.ToList()); // Вывод списка запросо получения кредитов из БД
+        }
+
+        public IActionResult CalculateCredit()
+        {
+            // return Redirect("~/Home/CalculateCredit");
+            return View(listDataCredit);
         }
 
         //Атрибут кэширования

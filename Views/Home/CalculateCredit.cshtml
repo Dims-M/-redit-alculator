@@ -1,4 +1,5 @@
-﻿@model IEnumerable<СreditСalculator.Models.CreditBindingModel>
+﻿@*@model IEnumerable<СreditСalculator.Models.CreditBindingModel>*@
+@model List<string>
 @{
     Layout = null;
 }
@@ -16,31 +17,31 @@
     <div class="row">
         <div class="row">
             <h3>Ваш расчет готов!! </h3>
-            
+
             <table class="table table-borderless">
                 <thead>
                     @*@ViewBag.Resul*@
                     <tr>
                         <td scope="col">Номер платежа</td>
-                    <td scope="col">Дата платежа</td>
-                    <td>Размер  тела платежа</td>
-                    <td>Размер платежа в процентах</td>
-                    <td>Остаток основного долга</td>
-                    <td>Переплата за кредит</td>
+                        <td scope="col">Дата платежа</td>
+                        <td>Размер  тела платежа</td>
+                        <td>Размер платежа в процентах</td>
+                        <td>Остаток основного долга</td>
+                        <td>Переплата за кредит</td>
                         <td>Размер тела платежа</td>
                         <td></td>
                     </tr>
-                    @foreach (var resulCredit in ViewBag.Data)
-                {
-                    <tr>
-                        @*<td>@resulCredit.NumberPayment</td>
-                        <td>@resulCredit.DateTimePayment</td>
-                        <td>@resulCredit.SizePaymentBody</td>
-                        <td>@resulCredit.SizePaymentPercentage</td>
-                        <td>@resulCredit.PrincipalBalance</td>
-                        <td>@resulCredit.OverpaymentBalanceCredit</td>*@
+                    @foreach (string resulCredit in Model)
+                    {
+                        <tr>
+                            @*<td>@resulCredit.NumberPayment</td>
+                                <td>@resulCredit.DateTimePayment</td>
+                                <td>@resulCredit.SizePaymentBody</td>
+                                <td>@resulCredit.SizePaymentPercentage</td>
+                                <td>@resulCredit.PrincipalBalance</td>
+                                <td>@resulCredit.OverpaymentBalanceCredit</td>*@
 
-                    </tr>
+                        </tr>
                     }
                 </thead>
             </table>
@@ -54,3 +55,4 @@
     </ul>
 </body>
 </html>
+
