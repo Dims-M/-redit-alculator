@@ -26,27 +26,27 @@ namespace СreditСalculator.Models
         /// <summary>
         /// Размер платежа основного долга. Руб 
         /// </summary>
-        public int SizePaymentBody { get; set; }
+        public double SizePaymentBody { get; set; }
 
         /// <summary>
         /// Размер платежа в процентах
         /// </summary>
-        public int SizePaymentPercentage { get; set; }
+        public double SizePaymentPercentage { get; set; }
 
         /// <summary>
         /// Остаток основного долга. В руб
         /// </summary>
-        public int PrincipalBalance { get; set; }
+        public double PrincipalBalance { get; set; }
 
         /// <summary>
         /// Переплата по кредиту. Только переплата. Без основного тела долга
         /// </summary>
-        public int OverpaymentBalanceCredit { get; set; }
+        public double OverpaymentBalanceCredit { get; set; }
 
         /// <summary>
         /// Переплата по кредиту. Основной долг + переплата
         /// </summary>
-        public int TotalBalanceCredit { get; set; }
+        public double TotalBalanceCredit { get; set; }
 
         public int IdCredit { get; set; } // ссылка на связанную модель заявки кредита
         public CreditBindingModel CreditBindingModel { get; set; }
