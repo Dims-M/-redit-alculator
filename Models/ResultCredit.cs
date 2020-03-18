@@ -38,6 +38,11 @@ namespace СreditСalculator.Models
         /// </summary>
         public int PrincipalBalance { get; set; }
 
+        /// <summary>
+        /// Переплата по кредиту
+        /// </summary>
+        public int OverpaymentBalanceCredit { get; set; }
+
         public int IdCredit { get; set; } // ссылка на связанную модель заявки кредита
         public CreditBindingModel CreditBindingModel { get; set; }
 
