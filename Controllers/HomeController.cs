@@ -67,7 +67,7 @@ namespace СreditСalculator.Controllers
                 int timeCredit = creditG.TermCredit;
                 int stavkaCrediy = creditG.LendingTate;
 
-                TestRaschet(summaCredita, stavkaCrediy, timeCredit); // Тестовый расчет и запись в бд
+               TestRaschet(summaCredita, stavkaCrediy, timeCredit); // Тестовый расчет и запись в бд
 
                creditBindingModelTemp = creditG;
 
@@ -77,6 +77,7 @@ namespace СreditСalculator.Controllers
                 db.AddRange(
                    new CreditBindingModel
                    {
+                        
                        SummaCredit = summaCredita,
                        TermCredit = timeCredit,
                        LendingTate = stavkaCrediy
@@ -127,6 +128,7 @@ namespace СreditСalculator.Controllers
                 double SumCredit = Convert.ToDouble(sumCreditSum); // Сумма кредита
                 double InterestRateYear = Convert.ToDouble(sumProcent); // Процентная ставка, ГОДОВАЯ
                 double InterestRateMonth = InterestRateYear / 100 / 12; // Процентная ставка, МЕСЯЧНАЯ
+                double InterestRateDay = InterestRateMonth / 30 ; // Процентная ставка, МЕСЯЧНАЯ
                 int CreditPeriod = Convert.ToInt32(sumPeriod); // Срок кредита, переводим в месяцы, если указан в годах
 
                 //if (sumPeriodCombo.SelectedIndex == 0) // Должен БЫТЬ Выподающий список
@@ -136,18 +138,22 @@ namespace СreditСalculator.Controllers
                 //{
                 double Payment = SumCredit * (InterestRateMonth / (1 - Math.Pow(1 + InterestRateMonth, -CreditPeriod))); // Ежемесячный платеж
                 double ItogCreditSum = Payment * CreditPeriod; // Итоговая сумма кредита
+                double PereplataPoCredity = ItogCreditSum - SumCredit; ////переплата по кредиту
 
+                double ObsiaSummaPereplaty = SumCredit+ PereplataPoCredity;
                 //Добавляев в БД для статистики
                 db.AddRange(
                    new ResultCredit
                    {
                        SizePaymentBody = Convert.ToInt32(Payment),
-                       PrincipalBalance = 0, // остаток основного долга
-                       SizePaymentPercentage = 0 //размер в процентах
-                      
+                       PrincipalBalance = 0, // остаток основного долга в руб 
+                       SizePaymentPercentage = 0,//остаток основного долга в процентах
+                       OverpaymentBalanceCredit = Convert.ToInt32(PereplataPoCredity), //переплата по кредиту
+                       TotalBalanceCredit = Convert.ToInt32(PereplataPoCredity + SumCredit),
+                       DateTimePayment = DateTime.Now, // дата создания расчета
                    }
 
-                   );
+                   ) ;  
                 db.SaveChanges(); // сохр. в бд
 
                 // PaymentScheduleAnnuitet(SumCredit, InterestRateYear, InterestRateMonth, CreditPeriod);

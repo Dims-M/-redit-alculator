@@ -19,12 +19,12 @@ namespace СreditСalculator.Models
         public int NumberPayment { get; set; }
 
         /// <summary>
-        /// дата платежа
+        /// Дата создания заявки платежа. Для БД
         /// </summary>
         public DateTime DateTimePayment { get; set; }
 
         /// <summary>
-        /// Размер  тела платежа
+        /// Размер платежа основного долга. Руб 
         /// </summary>
         public int SizePaymentBody { get; set; }
 
@@ -34,14 +34,19 @@ namespace СreditСalculator.Models
         public int SizePaymentPercentage { get; set; }
 
         /// <summary>
-        /// Остаток основного долга
+        /// Остаток основного долга. В руб
         /// </summary>
         public int PrincipalBalance { get; set; }
 
         /// <summary>
-        /// Переплата по кредиту
+        /// Переплата по кредиту. Только переплата. Без основного тела долга
         /// </summary>
         public int OverpaymentBalanceCredit { get; set; }
+
+        /// <summary>
+        /// Переплата по кредиту. Основной долг + переплата
+        /// </summary>
+        public int TotalBalanceCredit { get; set; }
 
         public int IdCredit { get; set; } // ссылка на связанную модель заявки кредита
         public CreditBindingModel CreditBindingModel { get; set; }

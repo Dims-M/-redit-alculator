@@ -18,24 +18,27 @@
         <table class="table table-borderless">
             <thead>
                 <tr>
-                    <td scope="col">Номер платежа</td>
-                    <td scope="col">Дата платежа</td>
-                    <td>Размер  тела платежа</td>
+                    <td>Номер платежа</td>
+                    <td>Дата платежа</td>
+                    <td>Размер размер ежемесячного платежа</td>
                     <td>Размер платежа в процентах</td>
                     <td>Остаток основного долга</td>
                     <td>Переплата за кредит</td>
                     @*<td>Размер  тела платежа</td>*@
+                    <td>Размер полной суммы переплаты</td>
                     @*<td></td>*@
                 </tr>
                 @foreach (var resulCredit in Model)
                 {
             <tr>
+                @*<td>@resulCredit.NumberPayment</td>*@
                 <td>@resulCredit.NumberPayment</td>
                 <td>@resulCredit.DateTimePayment</td>
                 <td>@resulCredit.SizePaymentBody</td>
                 <td>@resulCredit.SizePaymentPercentage</td>
                 <td>@resulCredit.PrincipalBalance</td>
                 <td>@resulCredit.OverpaymentBalanceCredit</td>
+                <td>@resulCredit.TotalBalanceCredit</td>
 
             </tr>
                 }
