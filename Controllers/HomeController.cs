@@ -26,11 +26,6 @@ namespace СreditСalculator.Controllers
             db = creditContext; //Подключение к БД
         }
 
-        //public HomeController(CreditContext creditContext)
-        //{
-        //    db = creditContext; //Подключение к БД
-        //}
-
         /// <summary>
         /// По умолчанию
         /// </summary>
@@ -46,6 +41,7 @@ namespace СreditСalculator.Controllers
         /// Завяка на кредит. 
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public IActionResult CreditGet()
         {
             //Отправляем форму для регистрации. Или другую форму для ввода данных пользователю
@@ -63,16 +59,11 @@ namespace СreditСalculator.Controllers
             if (ModelState.IsValid)
             {
                 int summaCredita = creditG.SummaCredit;
-                //ViewBag.SummaCredit = creditG.SummaCredit;
                 int timeCredit = creditG.TermCredit;
-               // ViewBag.TermCredit = creditG.TermCredit;
-               int stavkaCrediy = creditG.LendingTate;
-                // ViewBag.LendingTate = creditG.LendingTate;
-                //  return View("Success2");
+                int stavkaCrediy = creditG.LendingTate;
 
                 ViewBag.Resul2 = creditG;
 
-                //ViewData["Resul"] = $"Ваша заявка расмотренна \n Сумма кредита:{summaCredita}\n Нужный срок кредитования:{timeCredit} \n Утвержденная ставка {stavkaCrediy}";
                 ViewBag.Resul = $"Ваша заявка расмотренна!" +
                     $" {Environment.NewLine}" +
                     $"Сумма кредита:{summaCredita}" +
@@ -80,8 +71,7 @@ namespace СreditСalculator.Controllers
                     $"Нужный срок кредитования:{timeCredit}" +
                     $"{Environment.NewLine}" +
                     $"Утвержденная ставка{stavkaCrediy}";
-                //ViewBag.Message = $"Ваша заявка расмотренна \n Сумма кредита:{summaCredita}\n Нужный срок кредитования:{timeCredit} \n Утвержденная ставка {stavkaCrediy}";
-                //return Content($"Ваша заявка расмотренна \n Сумма кредита:{summaCredita}\n Нужный срок кредитования:{timeCredit} \n Утвержденная ставка {stavkaCrediy}");
+ 
                 return View("Success");
             }
 
