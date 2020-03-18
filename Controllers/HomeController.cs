@@ -67,8 +67,9 @@ namespace СreditСalculator.Controllers
                 int timeCredit = creditG.TermCredit;
                 int stavkaCrediy = creditG.LendingTate;
 
-                 
-                creditBindingModelTemp = creditG;
+                TestRaschet(summaCredita, stavkaCrediy, timeCredit); // Тестовый расчет и запись в бд
+
+               creditBindingModelTemp = creditG;
 
                 listDataCredit = new List<string>(){ $"Ваша заявка расмотренна!{Environment.NewLine}Сумма кредита:{summaCredita}{Environment.NewLine}Нужный срок кредитования:{timeCredit}{Environment.NewLine}Утвержденная ставка{stavkaCrediy}"};
 
@@ -112,30 +113,42 @@ namespace СreditСalculator.Controllers
         }
 
 
-        internal void TestRaschet(int sumCreditSum, int sumProcent, int sumPeriod)
+        internal string TestRaschet(int sumCreditSum, int sumProcent, int sumPeriod)
         {
             if (sumCreditSum == 0)
             {
-               // MessageBox.Show("Укажите сумму кредита.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                // MessageBox.Show("Укажите сумму кредита.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "jib,rf";
             }
-           
+
             else
             {
-               // dgvGrafik.Rows.Clear(); // Очищаем таблицу
+                // dgvGrafik.Rows.Clear(); // Очищаем таблицу
                 double SumCredit = Convert.ToDouble(sumCreditSum); // Сумма кредита
                 double InterestRateYear = Convert.ToDouble(sumProcent); // Процентная ставка, ГОДОВАЯ
                 double InterestRateMonth = InterestRateYear / 100 / 12; // Процентная ставка, МЕСЯЧНАЯ
                 int CreditPeriod = Convert.ToInt32(sumPeriod); // Срок кредита, переводим в месяцы, если указан в годах
 
                 //if (sumPeriodCombo.SelectedIndex == 0) // Должен БЫТЬ Выподающий список
-                    CreditPeriod *= 12;
+                CreditPeriod *= 12; //преобразование в количество месяцев
 
                 //if (sumAnnuitet.Checked == true) // Аннуитетный платеж
                 //{
                 double Payment = SumCredit * (InterestRateMonth / (1 - Math.Pow(1 + InterestRateMonth, -CreditPeriod))); // Ежемесячный платеж
                 double ItogCreditSum = Payment * CreditPeriod; // Итоговая сумма кредита
 
+                //Добавляев в БД для статистики
+                db.AddRange(
+                   new ResultCredit
+                   {
+                       SizePaymentBody = Convert.ToInt32(Payment),
+                       PrincipalBalance = 0, // остаток основного долга
+                       SizePaymentPercentage = 0 //размер в процентах
+                      
+                   }
+
+                   );
+                db.SaveChanges(); // сохр. в бд
 
                 // PaymentScheduleAnnuitet(SumCredit, InterestRateYear, InterestRateMonth, CreditPeriod);
                 //}
@@ -144,8 +157,10 @@ namespace СreditСalculator.Controllers
                 //    PaymentScheduleDiffer(SumCredit, InterestRateMonth, CreditPeriod);
                 //}
                 //butSaveAsCSV.Enabled = true;
-            }
 
+                return "";
+            }
+        }
         //Атрибут кэширования
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
