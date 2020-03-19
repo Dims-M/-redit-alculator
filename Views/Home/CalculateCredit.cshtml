@@ -1,5 +1,6 @@
 ﻿@*@model IEnumerable<СreditСalculator.Models.CreditBindingModel>*@
-@model List<string>
+@model List<ResultCredit>
+
 @{
     Layout = null;
 }
@@ -15,45 +16,67 @@
 </head>
 <body class="card-body">
     <div class="row">
-        <div class="row">
+        <div>
             <h3>Ваш расчет готов!! </h3>
+
+            @{ 
+                int Stavka = 0;
+                int SummaCredit = 0;
+                int TotalSummaCredit = 0;
+                int TotalPercentageSumm = 0;
+                int SummaOplatiM = 0;
+
+
+            }
 
             <table class="table table-borderless">
                 <thead>
-                    @*@ViewBag.Resul*@
+
                     <tr>
                         <td>Номер платежа</td>
-                        <td>Дата платежа</td>
-                        <td>Размер размер ежемесячного платежа</td>
+                        @*<td>Дата платежа</td>*@
+                        <td>Платеж по основному долгу(по телу) </td>
                         <td>Размер платежа в процентах</td>
                         <td>Остаток основного долга</td>
-                        <td>Переплата за кредит</td>
-                        <td>Размер тела платежа</td>
-                        <td>Размер полной суммы переплаты</td>
+                        @*<td>Переплата за кредит</td>*@
+                        @*<td>Размер тела платежа</td>*@
+                        @*<td>Размер полной суммы переплаты</td>*@
                         <td></td>
                     </tr>
-                    @foreach (string resulCredit in Model)
+                    @foreach (var resulCredit in Model)
                     {
-                        <tr>
-                            @*<td>@resulCredit.NumberPayment</td>
-                                <td>@resulCredit.DateTimePayment</td>
-                                <td>@resulCredit.SizePaymentBody</td>
-                                <td>@resulCredit.SizePaymentPercentage</td>
-                                <td>@resulCredit.PrincipalBalance</td>
-                                <td>@resulCredit.OverpaymentBalanceCredit</td>*@
-
-                        </tr>
+                        @*@{
+            temp2 = Convert.ToInt32(resulCredit.TotalBalanceCredit);
+             }*@
+                <tr>
+                    <td>@resulCredit.NumberPayment</td>
+                    <td>@resulCredit.SizePaymentBody</td>
+                    <td>@resulCredit.SizePaymentPercentage</td>
+                    <td>@resulCredit.PrincipalBalance</td>
+                  
+                </tr>
+                        Stavka = Convert.ToInt32(resulCredit.StavkaCredit);
+                        SummaCredit = Convert.ToInt32(resulCredit.SummaCredita);
+                        TotalSummaCredit = Convert.ToInt32(resulCredit.TotalBalanceCredit);
+                        TotalPercentageSumm = Convert.ToInt32(resulCredit.OverpaymentBalanceCredit);
+                        SummaOplatiM = Convert.ToInt32(resulCredit.SizePaymentBody);
+                        
                     }
+
                 </thead>
             </table>
+        <div>
+            <h1>Итого:</h1>  <h2>Сумма кредита: @SummaCredit</h2> <h3>Кредитная ставка: @Stavka</h3> <h3>Ежемесячная оплата: @SummaOplatiM</h3> <h3>Сумма переплаты:@TotalPercentageSumm</h3> <h3> Итоговая переплата:@TotalSummaCredit </h3>
+        <h6>Данный расчет не является офертой</h6>
+        </div>
 
         </div>
     </div>
-    <ul>
-        <li>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">На главную страницу.</a>
-        </li>
-    </ul>
+    @*<ul>*@
+        @*<li>*@
+            <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">На главную страницу.</a>
+        @*</li>*@
+    @*</ul>*@
 </body>
 </html>
 
