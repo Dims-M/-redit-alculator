@@ -29,7 +29,7 @@ namespace СreditСalculator.Models
         public double SizePaymentBody { get; set; }
 
         /// <summary>
-        /// Размер платежа в процентах
+        /// Размер платежа в процентах.
         /// </summary>
         public double SizePaymentPercentage { get; set; }
 

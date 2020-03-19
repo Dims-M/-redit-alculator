@@ -32,7 +32,7 @@ namespace СreditСalculator.Models
         [Required(ErrorMessage = "Укажите нужный срок кредита")]
       //  [StringLength(2)]
         [UIHint("TermCredit")]
-        [Display(Name = "Срок кредитования")]
+        [Display(Name = "Срок кредитования. В мес.")]
         public int TermCredit { get; set; }
         /// <summary>
         /// Ставка кредитования 
