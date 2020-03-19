@@ -67,7 +67,7 @@ namespace СreditСalculator.Controllers
                 int timeCredit = creditG.TermCredit;
                 int stavkaCrediy = creditG.LendingTate;
 
-               ёTestRaschet(summaCredita, stavkaCrediy, timeCredit); // Тестовый расчет и запись в бд
+                TestRaschet(summaCredita, stavkaCrediy, timeCredit); // Тестовый расчет и запись в бд
 
                creditBindingModelTemp = creditG;
 
@@ -124,15 +124,18 @@ namespace СreditСalculator.Controllers
 
             else
             {
-                // dgvGrafik.Rows.Clear(); // Очищаем таблицу
+               
                 double SumCredit = Convert.ToDouble(sumCreditSum); // Сумма кредита
                 double InterestRateYear = Convert.ToDouble(sumProcent); // Процентная ставка, ГОДОВАЯ
+
+               // double InterestRateMonth = Convert.ToDouble(sumProcent); // Процентная ставка, МЕСЯЧНАЯ
                 double InterestRateMonth = InterestRateYear / 100 / 12; // Процентная ставка, МЕСЯЧНАЯ
-                double InterestRateDay = InterestRateMonth / 30 ; // Процентная ставка, МЕСЯЧНАЯ
+                double InterestRateDay = InterestRateMonth / 30 ; // Процентная ставка, дневная
                 int CreditPeriod = Convert.ToInt32(sumPeriod); // Срок кредита, переводим в месяцы, если указан в годах
 
                 //if (sumPeriodCombo.SelectedIndex == 0) // Должен БЫТЬ Выподающий список
-                CreditPeriod *= 12; //преобразование в количество месяцев
+               // CreditPeriod *= 12; //преобразование в количество месяцев при выборе годовой ставки
+              
 
                 //if (sumAnnuitet.Checked == true) // Аннуитетный платеж
                 //{
@@ -141,20 +144,41 @@ namespace СreditСalculator.Controllers
                 double PereplataPoCredity = ItogCreditSum - SumCredit; ////переплата по кредиту
 
                 double ObsiaSummaPereplaty = SumCredit+ PereplataPoCredity;
-                //Добавляев в БД для статистики
-                db.AddRange(
-                   new ResultCredit
-                   {
-                       SizePaymentBody = Convert.ToInt32(Payment),
-                       PrincipalBalance = 0, // остаток основного долга в руб 
-                       SizePaymentPercentage = 0,//остаток основного долга в процентах
-                       OverpaymentBalanceCredit = Convert.ToInt32(PereplataPoCredity), //переплата по кредиту
-                       TotalBalanceCredit = Convert.ToInt32(PereplataPoCredity + SumCredit),
-                       DateTimePayment = DateTime.Now, // дата создания расчета
-                   }
+                
 
-                   ) ;  
-                db.SaveChanges(); // сохр. в бд
+                //РАСЧЕТ ОТСТАТКА
+                //double Payment2 = SumCredit * (InterestRateMonth / (1 - Math.Pow(1 + InterestRateMonth, -CreditPeriod))); // Ежемесячный платеж
+                //double ItogCreditSum2 = Payment * CreditPeriod; // Итоговая сумма кредита
+
+                // Заполняем график платежей
+                double SumCreditOperation = SumCredit;
+                double ItogCreditSumOperation = ItogCreditSum;
+                double ItogPlus;
+                double itogOverpayment = 0; // итоговая переплата
+                double procent = 0; // платеж по процент в руб
+                double pereplataOchovTela = 0;
+
+                string temp = "";
+
+                for (int i = 0; i < CreditPeriod; ++i)
+                {
+                    int temp1 = Convert.ToInt32((InterestRateMonth / 100)) / 12;
+
+                    procent = SumCreditOperation * (InterestRateYear / 100) / 12; //   платеж по процент в руб переплаты уменьшается при каждом цикле
+                    SumCreditOperation -= Payment - procent;
+                    // dgvGrafik.Rows.Add();
+                    temp += i + 1+"\n"; //номер месяца
+                    temp += Payment.ToString("N2")+"\n"; //Ежемесячный платеж
+                    temp += (Payment - procent).ToString("N2")+"\n"; //Платеж за основной долг
+                    pereplataOchovTela = (Payment - procent); // платеж по основнмому долгу. в руб
+                    temp += procent.ToString("N2")+"\n"; //Платеж процента
+                    temp += SumCreditOperation.ToString("N2")+"\n"; //Основной остаток
+                    ItogCreditSumOperation -= Payment;
+                    ItogPlus = SumCreditOperation;
+                    temp += ItogPlus + "\n";
+                    itogOverpayment = (ItogCreditSum - SumCredit + ItogPlus);
+                }
+                // itogOverpayment.Text = (ItogCreditSum - SumCredit + ItogPlus).ToString("N2");
 
                 // PaymentScheduleAnnuitet(SumCredit, InterestRateYear, InterestRateMonth, CreditPeriod);
                 //}
@@ -163,6 +187,24 @@ namespace СreditСalculator.Controllers
                 //    PaymentScheduleDiffer(SumCredit, InterestRateMonth, CreditPeriod);
                 //}
                 //butSaveAsCSV.Enabled = true;
+
+                //Добавляев в БД для статистики
+                db.AddRange(
+                   new ResultCredit
+                   {
+                       // SizePaymentBody = Convert.ToInt32(Payment),
+                       SizePaymentBody = Math.Round(Payment, 2),
+                       PrincipalBalance = Math.Round(pereplataOchovTela, 2), // размер платежа основного долга в руб 
+                       SizePaymentPercentage = Math.Round(procent,2),//остаток основного долга в процентах
+                       OverpaymentBalanceCredit = Math.Round(PereplataPoCredity, 2), //переплата по кредиту
+                                                                                     // TotalBalanceCredit = Convert.ToInt32(PereplataPoCredity + SumCredit),
+                       TotalBalanceCredit = Math.Round(PereplataPoCredity + SumCredit, 2),
+                       DateTimePayment = DateTime.Now, // дата создания расчета
+                                                       // decimal out = decimal.Round(In, 2);
+                   }
+
+                   ); ;
+                db.SaveChanges(); // сохр. в бд
 
                 return "";
             }
