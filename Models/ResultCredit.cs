@@ -24,6 +24,16 @@ namespace СreditСalculator.Models
         public DateTime DateTimePayment { get; set; }
 
         /// <summary>
+        /// Клиенская сумма кредита
+        /// </summary>
+        public double  SummaCredita{ get; set; }
+
+        /// <summary>
+        /// Кредитная ставка
+        /// </summary>
+        public double StavkaCredit { get; set; }
+
+        /// <summary>
         /// Размер платежа основного долга. Руб 
         /// </summary>
         public double SizePaymentBody { get; set; }
